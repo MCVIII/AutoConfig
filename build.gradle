@@ -14,17 +14,18 @@ plugins {
     id("maven-publish")
     id("signing")
     id("com.jfrog.bintray") version "1.8.4"
-    id("fabric-loom") version("0.5-SNAPSHOT")
-    id("com.github.johnrengelman.shadow") version("5.0.0")
+    id("fabric-loom") version("0.10-SNAPSHOT")
+    id("com.github.johnrengelman.shadow") version("7.1.0")
 }
 
 java {
-    sourceCompatibility = JavaVersion.VERSION_1_8
-    targetCompatibility = JavaVersion.VERSION_1_8
+    sourceCompatibility = JavaVersion.VERSION_16
+    targetCompatibility = JavaVersion.VERSION_16
 }
 
 repositories {
     maven { url "https://maven.fabricmc.net/" }
+    maven { url "https://maven.terraformersmc.com" }
     jcenter()
 }
 
@@ -38,7 +39,7 @@ minecraft {
 dependencies {
     minecraft("com.mojang:minecraft:$minecraft_version")
     mappings("net.fabricmc:yarn:$yarn_mappings:v2")
-    modCompile("net.fabricmc:fabric-loader:$loader_version")
+    modImplementation("net.fabricmc:fabric-loader:$loader_version")
     dependModule("fabric-api-base", fabric_version)
     dependModule("fabric-resource-loader-v0", fabric_version, false)
 
@@ -46,13 +47,7 @@ dependencies {
         exclude(group: "net.fabricmc.fabric-api")
     }
 
-    modCompileOnly("io.github.prospector:modmenu:1.11.2+build.6") {
-        transitive = false
-    }
-    modRuntime("io.github.prospector:modmenu:1.11.2+build.6") {
-        transitive = false
-    }
-
+    modImplementation("com.terraformersmc:modmenu:3.0.0")
     shadow("blue.endless:jankson:1.1.+")
     implementation("blue.endless:jankson:1.1.+")
 
